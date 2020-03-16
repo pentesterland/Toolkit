@@ -17,6 +17,9 @@ opts = Optimist::options do
   opt :xml, "Extract URLs from a Burpsuite XML file", :type => :string
 end
 
+results = []
+
+
 def sanitize_non_ascii(string)
   encoding_options = {
     invalid: :replace,
@@ -32,19 +35,25 @@ case
 when opts[:ip]
   data = open(opts[:ip]).read
 
-  puts data.scan(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/)
+  results << data.scan(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/)
+
+  puts results.uniq
 
 # Scan for FQDNs
 when opts[:domain]
   data = open(opts[:domain]).read
 
-  puts data.scan(/(?:(https|http)?:\/\/)?(?:www\.)?([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/ix)
+  results << data.scan(/(?:(https|http)?:\/\/)?(?:www\.)?([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/ix)
+
+  puts results.uniq
 
 # Scan for email addresses
 when opts[:email]
   data = open(opts[:email]).read
 
-  puts data.scan(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)
+  results << data.scan(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)
+  
+  puts results.uniq
 
 # Scan a Burpsuite XML file from URLs
 when opts[:xml]

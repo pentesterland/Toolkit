@@ -1,11 +1,11 @@
 #!/bin/bash
 
-source "$(dirname $(realpath $0))/git-functions.sh"
+source "$(dirname $(realpath $0))/functions.sh"
 
-CONFIG=/home/dj/Tools/BugBounty/Scripts/djgit/basic.conf
+CONFIG="/home/dj/Tools/BugBounty/Toolkit/github/basic.conf"
 
 help_text() {
-	echo "Usage: djgit [init|commit|history|show|help] [<args>]"
+	echo "Usage: github [init|commit|history|show|help] [<args>]"
 	if [ "$1" == "extended" ]; then
 		echo
 		echo "	init		Creates a new repository on Github"

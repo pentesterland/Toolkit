@@ -41,10 +41,10 @@ github_commit_all() {
 	commit_message="$2"
 
 	if [ ! -d $repo ]; then
-		echo -e "\033[31m! Github repo $repo doesn't exist. Try running djgit init <repo-name>\033[0m"
+		echo -e "\033[31m! Github repo $repo doesn't exist. Try running github init <repo-name>\033[0m"
 		exit 1
 	elif [ -z $commit_message ]; then
-		echo -e "$RED You must specify a commit message!"
+		echo -e "$RED You must specify a commit message! $OFF"
 	else
         	git -C $repo add .
         	git -C $repo commit -m $commit_message
@@ -60,7 +60,7 @@ github_commit() {
 	shift
 	shift
 	if [ ! -d $repo ]; then
-		echo -e "\033[31m! Github repo $repo doesn't exist. Try running djgit init <repo-name>\033[0m"
+		echo -e "\033[31m! Github repo $repo doesn't exist. Try running github init <repo-name>\033[0m"
 		exit 1
 	elif [ -z $commit_message ]; then
 		echo -e "$RED You must specify a commit message!"
@@ -76,7 +76,7 @@ github_history() {
 	repo=$1
 
 	if [ ! -d $repo ]; then
-		echo -e "\033[31m! Github repo $repo doesn't exist. Try running djgit init <repo-name>\033[0m"
+		echo -e "\033[31m! Github repo $repo doesn't exist. Try running github init <repo-name>\033[0m"
 		exit 1
 	else
         	git -C $repo log
@@ -87,7 +87,7 @@ github_show() {
 	repo=$1
 
 	if [ ! -d $repo ]; then
-		echo -e "\033[31m! Github repo $repo doesn't exist. Try running djgit init <repo-name>\033[0m"
+		echo -e "\033[31m! Github repo $repo doesn't exist. Try running github init <repo-name>\033[0m"
 		exit 1
 	else
         	git -C $repo show

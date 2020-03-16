@@ -52,6 +52,7 @@ app.get('/ipv4/:host', (req, res) => {
 		}
 
 		return ipinfo.lookupIp(ipAddr).then(response => {
+			response["_query"] = host
 			if (response.hostname === undefined) {
 				res.send(response);
 				return;
